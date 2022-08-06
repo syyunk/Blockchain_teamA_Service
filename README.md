@@ -1,1 +1,5 @@
-배고프다아아아아아아아
+# team-a
+
+##### Used Language : Java11, GoLang
+##### Integration Development Tool : Visual Studio Code 
+##### Development Stack(FrameWork) : Spring Boot, Hibernate 
