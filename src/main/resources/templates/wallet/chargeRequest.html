@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basement::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<h1 class="mt4">충전 </h1>
+		
+		<form th:action="@{/wallet/chargeRequest}" th:method="post">
+			<div class="form-group">
+				<label>현재 잔액</label>
+				<input type="text" class="form-control" name="balance"
+				th:value="${wDto.balance}" readOnly />
+			</div>
+			<div class="form-group">
+				<label>회사 지갑주소</label>
+				<input type="text" class="form-control" name="bWallet" value="회사지갑주소" readonly="readonly" />
+			</div>
+			<div class="form-group" >
+				<label>충전요청인 지갑주소</label>
+				<input type="text" class="form-control" name="sWallet" th:value="${walletid}"/>
+			</div>
+			<div class="form-group">
+				<label>요청 금액</label>
+				<input type="number" class="form-control" name="total" />
+			</div>
+			<div class="form-group" >
+				<input type="hidden" class="form-control" name="confirm" value="0"/>
+			</div>
+			<a href="/product/list"><input value="취소" type="button" class="btn btn-primary" /></a> 
+			<button type="submit" class="btn btn-primary" >충전 요청</button>
+		</form>
+	</th:block>
+</body>
+</html>

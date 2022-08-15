@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<tr>
+			<td colspan="9" align="left">
+				<a th:href="@{/myPage/list}">
+					<button id="allBtn">전체</button>
+				</a>
+				<a th:href="@{/myPage/sellList(mnum=${page})}">
+					<button id="sellBtn">판매</button>
+				</a>
+				<a th:href="@{/myPage/buyList(mnum=${page})}">
+					<button id="buyBtn">구매</button>
+				</a>
+			</td>
+		</tr>
+		
+		<table class="table tale-striped"> 
+			<thead>
+				<tr>
+					<!-- <th>블록 아이디</th> -->
+					<th>트랜잭션 아이디</th>
+					<th>구매자</th>
+					<th>판매자</th>
+					<th>가격</th>
+					<th>거래시각</th>
+					<th>관리</th>
+				</tr>
+			</thead>
+			
+			<tr th:each="dto:${result.dtoList}">
+			
+			
+			
+			<th th:if="${dto.txid == null}">
+					구매확정 후 생성됩니다.
+			</th>
+			<th th:unless="${dto.txid == null}">
+					[[${dto.txid}]]
+			</th>
+	
+				<th>[[${dto.bwallet}]]</th>
+				<th>[[${dto.swallet}]]</th>
+				<th>[[${dto.total}]]</th>
+				<td th:text="${#temporals.format(dto.date, 'yyyy-MM-dd HH:mm:ss')}"></td>
+				
+				<th th:if="${dto.confirm} == 0">
+					<button class="comfirmBtn" th:href1="${dto.pnum}"
+					 	th:href2="${dto.total}"
+					  	th:href3="${dto.bwallet}"
+					    th:href4="${dto.swallet}"
+					    th:href5="${dto.tnum}">구매확정
+					</button>
+					</th>
+					
+				<th th:unless="${dto.confirm} == 0">
+								
+								
+					<button  class="getTxBtn" name="test" th:value=${dto.txid}>
+						 <a href="#ex2" rel="modal:open">
+						 tx 조회
+						 </a>
+					 </button>
+							
+					 <button  class="getBlkBtn" name="test" th:value=${dto.txid}>
+						 <a href="#ex1" rel="modal:open">
+						 블록 조회
+						 </a>
+					 </button>
+					 
+					 <!-- 모달창-->
+					<div id="ex1" class="modal">
+					  <p>Thanks for clicking. That felt good.</p>
+					  <a href="#" rel="modal:close"></a>
+					</div>
+					<div id="ex2" class="modal">
+					  <p>Thanks for clicking. That felt good.</p>
+					  <a href="#" rel="modal:close"></a>
+					</div>
+				</th>
+			
+			</tr>
+			</tbody>
+		</table>
+	
+		<!-- 구매확정 데이터 폼 -->
+		<form method="post" class="comfirmForm">
+			<input type="hidden" name="pnum" value="" />
+			<input type="hidden" name="total" value="" />
+			<input type="hidden" name="bwallet" value="" />
+			<input type="hidden" name="swallet" value="" />
+			<input type="hidden" name="tnum" value="" />
+			<!-- <input type="hidden" name="member" value="" /> -->
+		</form>
+				
+		<script>
+			//구매확정버튼
+			$(".comfirmBtn").click(function(e){
+				e.preventDefault(); //태그 이동 기능 제거
+				//alert($(this).attr("href1"));
+				
+				let comfirmForm = $(".comfirmForm");
+				comfirmForm.find("input[name='pnum']").val($(this).attr("href1"));
+				comfirmForm.find("input[name='total']").val($(this).attr("href2"));
+				comfirmForm.find("input[name='bwallet']").val($(this).attr("href3"));
+				comfirmForm.find("input[name='swallet']").val($(this).attr("href4"));
+				comfirmForm.find("input[name='tnum']").val($(this).attr("href5"));
+				comfirmForm.attr("action", "/myPage/tradeConfirm"); 
+				comfirmForm.submit();
+			}); //comfirmBtn
+			
+			//블록조회 버튼
+			$(".getBlkBtn").click(function(e){
+				let block = $("#ex1");
+                //Ajax GET Method TEST
+                $.ajax({
+                      url: '/myPage/getBlock',
+                      //데이터 받는 타입
+                      dataType: 'json',
+                      type: 'get',
+                      data: {txid: $(this).attr("value")},
+ 					success : function (data) {
+						//alert(data.Hash);
+			            var html = "";
+			            html += 		            
+					        "<h3 class='tc'><b>Receipt-Block</b></h3>"
+					        + "<p>the best platform, which Second-hand Market Service!<br>"
+					        +" NOGOSANDONO 57-1, MAPOGU, SEOUL<br>"
+					        + "Helped by : POP Market</p><br><br>"
+					        + "<h4><b>BLOCK DETAILS</b></h4>"
+					        + "<p><b>**********************</b></p>"
+					        
+					        //+"<div class='box'>"
+					        +"<p id='blockId'><b>Block-Hash :</b><br><br> <b> "+data.Hash.substr(0,32)+"<br>"+data.Hash.substr(32,64)+"</b><br><br></p>"
+					        +"<p id='txidbyhex'><b>Txid :</b> <br><br>"+data.Txid.substr(0,32)+"<br>"+data.Txid.substr(32,64)+"<br><br></p>"
+					        +"<p id='timestamp'><b>Tiemstamp :</b> <br><br>"+data.Timestamp+"<br></p>"
+					        //+"</div>"
+					        
+					        + "<img class='barcode' src= '/images/img.jpg' style=' height:100px; width: 400;' />"
+					        //+ "<p><b>**********************</b></p>"
+					        +"<p>Returns With receipt,</p>"
+					        +"<p>subject to CVS Return Policy</p>"
+					        +"<p>*********************************************</p>"
+					        +"<p>We would love to hear your feedback on your</p>"
+					        +"<p>recent experience with us. This survey will</p>"
+					        +"<p>only take 1 minute to complete.</p>"
+					        +"<h4>Share Your Feedback</h2>"
+					        +"<h4>www.POP Market.com</h3>"
+					        +"<h4>enjoy your trade!</h2>"
+					        +"<p>*********************************************</p>"
+			            block.append(html);
+			         }    //sucess}            
+                  });//ajax
+			}); // getBlkBtn
+			
+		</script>
+		
+		
+		<script>
+		//tx조회 버튼
+		$(".getTxBtn").click(function(e){
+			let tx = $("#ex2");
+            //Ajax GET Method TEST
+            $.ajax({
+                  url: '/myPage/getTx',
+                  //데이터 받는 타입
+                  dataType: 'json',
+                  type: 'get',
+                  data: {txid: $(this).attr("value")},
+					success : function (data) {
+					//alert(data.To);
+		            var html = "";
+		            html += 		            
+				        "<h3 class='tc'><b>Receipt-TRANSACTION</b></h3>"
+				        + "<p>the best platform, which Second-hand Market Service!<br>"
+				        +" NOGOSANDONO 57-1, MAPOGU, SEOUL<br>"
+				        + "Helped by : POP Market</p><br><br>"
+				        + "<h4><b>TRANSACTION DETAILS</b></h4>"
+				        + "<p><b>**********************</b></p>"
+				        
+				        //+"<div class='box'>"
+				        +"<p id='txidbyhex'><b>Txid :</b> <br><br>"+data.Txid.substr(0,32)+"<br>"+data.Txid.substr(32,64)+"<br><br></p>"
+				        +"<p id='From'><b>From :</b> <br><br>"+data.From+"<br></p>"
+				        +"<p id='To'><b>To :</b> <br><br>"+data.To+"<br></p>"
+				        +"<p id='Amount'><b>Amount :</b> <br><br>"+data.Amount+"<br></p>"
+				        //+"</div>"
+				        
+				        //+ "<p><b>**********************</b></p>"
+				        +"<p>Returns With receipt,</p>"
+				        +"<p>subject to CVS Return Policy</p>"
+				        +"<p>*********************************************</p>"
+				        +"<p>We would love to hear your feedback on your</p>"
+				        +"<p>recent experience with us. This survey will</p>"
+				        +"<p>only take 1 minute to complete.</p>"
+				        +"<h4>Share Your Feedback</h2>"
+				        +"<h4>www.POP Market.com</h3>"
+				        +"<h4>enjoy your trade!</h2>"
+				        +"<p>*********************************************</p>"
+		            tx.append(html);
+		         }    //sucess}   
+              });//ajax
+		}); // getTxBtn
+		
+		
+		</script>
+		
+		
+		<style>
+
+         .tc {
+            text-align : center;
+         }
+         div , p, h4, b{
+            text-align : center;
+         }
+         .modal{
+		  position: fixed;
+		  top: 50%;
+		  left: 50%;
+		  transform: translate(-50%, -50%);
+		}
+		div.box {
+			overflow: auto;
+			background-color: #99ccff;
+			width: 350px;
+		}
+		img.barcode { display : block;
+                 margin : auto;}
+
+		
+		
+
+		
+      </style>
+
+	</th:block>
+</th:block>

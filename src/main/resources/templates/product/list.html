@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basement::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<h1>
+			상품리스트
+			<span>
+				<a th:href="@{/product/register}">
+					<button type="button" class="btn btn-outline-warning">
+						상품 등록
+					</button>
+				</a>
+			</span>
+		</h1>
+
+		<div th:if="${msg != null}" th:text="${msg}"></div>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">상품명</th>
+					<th scope="col">작성자</th>
+					<th scope="col">작성일</th>
+					<th scope="col">가격</th>
+					<th scope="col">사진</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dto:${result.dtoList}">
+
+					<th scope="row">[[${dto.pnum}]]</th>
+					<td>
+					<a th:href="@{/product/read(pnum=${dto.pnum})}">
+						[[${dto.name}]]
+					</a>
+					</td>
+					<td>[[${dto.nickname}]]</td>
+					<td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
+					<td>[[${dto.price}]]</td>
+					<td>[[${dto.thumb}]]</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<ul class="pagination h-100 justify-content-center align-items-center" style="display: flex;">
+			<li class="page-item" th:if="${result.prev}">
+				<a class="page-link" th:href="@{/memo/list(page=${result.start-1}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}" tabindex="-1">
+					이전
+				</a>
+			</li>
+
+			<li th:class=" 'page-item ' + ${result.page == page?'active':''}"
+				th:each="page:${result.pageList}">
+				<a class="page-link" th:href="@{/memo/list(page=${page})}">[[${page}]]</a>
+			</li>
+			<li class="page-item" th:if="${result.next}">
+				<a class="page-link" th:href="@{/memo/list(page=${result.end+1}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}" >
+					다음
+				</a>
+			</li>
+		</ul>
+
+		<script>
+			var searchForm = $("#searchform");
+
+			$('.btn-search').click(function() {
+				searchForm.submit();
+			});
+
+			$('.btn-clear').click(function() {
+				searchForm.empty().submit();
+			});
+		</script>
+	</th:block>
+</th:block>
+</html>

@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basement::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<section class="py-5">
+			<div class="container px-4 px-lg-5 my-5">
+
+				<div class="row gx-4 gx-lg-5 align-items-center" >
+
+					<div class="col-md-6"><img width="500" height="600"  class="card-img-top mb-5 mb-md-0" th:src="@{/images/}+${dto.thumb}" alt="..." /></div>
+					<div class="col-md-6" style="display: flex">
+						<div class="small mb-1" name="pnum" th:text="@{#.}+${dto.pnum}"></div>
+						<h1 class="display-1 fw-bolder">[[${dto.name}]]</h1>
+						<div class="fs-5 mb-5">
+							<!--							<span class="text-decoration-line-through">$45.00</span>-->
+							<!--							<span th:text="@{\\}+${dto.price}">$40.00</span>-->
+							<h4 th:text="${dto.price}+@{원}" style="margin-top: 5rem"></h4>
+							<h4 th:text="@{작성자 : }+${dto.nickname}"></h4>
+							<h4 th:text="@{거래지역 : }+${mdto.addr}"></h4>
+						</div>
+						<p class="lead">[[${dto.detail}]]</p>
+
+						<div>
+							<a href="/main" class="col-md-4">
+								<input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect btn " style="background-color: darkgray; color:white; width: 100%" value="목록보기" />
+							</a>
+							<a href="/myPage/tradeConfirm" class="col-md-4">
+								<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect btn " style="background-color: blueviolet; color:white; width: 100%">구매하기</button>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<!--		<div class="form-group">-->
+		<!--			<label>작성 시간</label>-->
+		<!--			<input type="text" class="form-control" name="regDate"-->
+		<!--				   th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:SS')}" readOnly />-->
+		<!--		</div>-->
+		<!--		<div class="form-group" hidden="hidden">-->
+		<!--			<label>수정 시간</label>-->
+		<!--			<input type="text" class="form-control" name="modDate"-->
+		<!--				   th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:SS')}" readOnly />-->
+		<!--		</div>-->
+
+		<script>
+			$(".btn-warning").click(function() {
+				if(!confirm("구매하시겠습니까?")) {
+					return;
+				}
+
+				var request = new XMLHttpRequest();
+				var url = "/product/buy";
+				var params = 'pnum=' + document.getElementById('pnum').value;
+
+				request.open('POST', url, true);
+				request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				request.send(params);
+
+				//request.addEventListener('load', () => {
+				//	alert("삭제 완료");
+				//	location.href='/memo/list';
+				//});
+			});
+
+			$(".btn-danger").click(function() {
+				if(!confirm("정말로 삭제하시겠습니까?")) {
+					return;
+				}
+
+				var request = new XMLHttpRequest();
+				var url = "/memo/remove";
+				var params = 'pnum=' + document.getElementById('pnum').value;
+
+				request.open('POST', url, true);
+				request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				request.send(params);
+
+				request.addEventListener('load', () => {
+					alert("삭제 완료");
+					location.href='/memo/list';
+				});
+			});
+			//이미지 사이즈 조정
+
+			<!--	function imgSize(which){-->
+			<!--		var width = eval("document."+which+".width");-->
+			<!--		var height = eval("document."+which+".height");-->
+			<!--		var temp = 0;-->
+			<!--		var max_width= 600;   // 이미지의 가로 최대 크기-->
+			<!--		var max_height = 400; // 이미지의 세로 최대 크기-->
+
+			<!--		if ( width > max_width ) {  // 이미지가 600보다 크다면 너비를 600으로 맞우고 비율에 맞춰 세로값을 변경한다.-->
+				<!--			height = height/(width / max_width);-->
+				<!--			eval("document."+which+".width = max_width");-->
+				<!--			eval("document."+which+".height = height");-->
+				<!--			width = max_width;-->
+				<!--		}-->
+
+				<!--		if( height > max_height ) {-->
+				<!--			width = width/(height / max_height);-->
+				<!--			eval(document.getElementById(which).width = width);-->
+				<!--			eval(document.getElementById(which).height = max_height);-->
+				<!--		}-->
+				<!--	}-->
+
+				<!--	imgSize("img");-->
+			<!--</script>-->
+
+
+	</th:block>
+</th:block>
