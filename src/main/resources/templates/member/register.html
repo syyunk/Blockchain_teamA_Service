@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <th:block th:replace="~{/layout/basic::setContent(~{this::content})}"> -->
+	<th:block th:fragment="content">
+	
+	<h1 class="mt4" align="center">회원가입</h1>
+	
+	<form th:name="signupForm"  th:action="@{/member/register}" th:method="post"  modelAttribute="MemberDto"> 
+		<table align="center">
+			<tr>
+				<td>아이디*</td>
+				<td>
+				<input type="text" name="mid" th:value="${MemberDto != null ? MemberDto.mid : null}" placeholder="아이디를 입력해주세요.">
+            	<span th:text="${valid_mid}"></span>
+				<div th:if="${error!=null}" th:text="${error}"></div>
+				
+				</td>
+			</tr>		
+			<tr>
+				<td>비밀번호*</td>
+				<td>
+				<input type="password" name="pw" th:value="${MemberDto != null ? MemberDto.pw : null}"/>
+				<span th:text="${valid_pw}"></span>
+				</td>
+			</tr>
+
+			<tr> 
+				<td>닉네임*</td>
+				<td>
+				<input type="text" name="nickname" th:value="${MemberDto != null ? MemberDto.nickname : null}"/>
+				<span th:text="${valid_nickname}"></span>
+				<div th:if="${error!=null}" th:text="${error}"></div>
+				</td>
+			</tr>
+			<tr> 
+				<td>지갑 이름*</td>
+				<td>
+				<input type="text" name="alias" th:value="${MemberDto != null ? MemberDto.alias : null}"/>
+				<span th:text="${valid_alias}"></span>
+				</td>
+			</tr>
+			<tr> 
+				<td>연락처*</td>
+				<td>
+				<input type="text" name="tel" th:value="${MemberDto != null ? MemberDto.tel : null}" 
+					placeholder="예) 010-1234-5678" onkeyup="addHypen(this);"/>
+				<span th:text="${valid_tel}"></span>				
+				</td>
+			</tr>
+			<tr> 
+				<td>주소*</td>
+				<td>
+				<input type="text" name="addr" />
+				<span th:text="${valid_addr}"></span>				
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="submit" value="회원가입" />
+					<input type="button" value="메인" onclick="window.location='/main'" />
+				</td>
+			</tr>
+		</table>
+	</form>
+	
+		<!-- 전화번호 입력 자동하이픈 -->
+	<script>
+    function addHypen(e) {
+        var number = e.value.replace(/[^0-9]/g, "");
+        var phone = "";
+ 
+        if (number.length < 4) {
+            return number;
+        } else if (number.length < 7) {
+            phone += number.substr(0, 3);
+            phone += "-";
+            phone += number.substr(3);
+        } else if (number.length < 10) {
+            phone += number.substr(0, 2);
+            phone += "-";
+            phone += number.substr(2, 3);
+            phone += "-";
+            phone += number.substr(5);
+        } else if (number.length < 11) {
+            phone += number.substr(0, 3);
+            phone += "-";
+            phone += number.substr(3, 3);
+            phone += "-";
+            phone += number.substr(6);
+        } else {
+            phone += number.substr(0, 3);
+            phone += "-";
+            phone += number.substr(3, 4);
+            phone += "-";
+            phone += number.substr(7, 4);
+        }
+        e.value = phone;
+    }
+
+	</script>	
+	
+	</th:block>
+</th:block>

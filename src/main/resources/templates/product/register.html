@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basement::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<h1 class="mt4">상품 등록</h1>
+		
+		<form action="/product/register" name="registerForm" method="post" enctype="multipart/form-data"  th:object="${dto}" 
+			 id="form" th:onsubmit="return check()">
+			<table align= "center">
+				<div class="form-group">
+					<input type="file" name="img" id="uploadFiles"/>
+				</div>
+				
+				<div class="form-group">
+					<label>미리보기</label>
+					<img url="" id="img" width="200" height="200" border="1"/>
+				</div>
+				<div class="form-group">
+					<label>제목</label>
+					<input type="text" class="form-control" name="name" placeholder="제목" />
+					<span th:text="${valid_name}"></span>
+					
+				</div>
+				<div class="form-group">
+					<label>가격</label>
+					<input type="number" class="form-control" name="price" placeholder="가격" />
+					<span th:text="${valid_price}"></span>
+				</div>
+				<div class="form-group">
+					<label>내용</label>
+					<textarea class="form-control" name="detail" id="detail" placeholder="게시글 내용을 작성해주세요."></textarea>
+					<span th:text="${valid_detail}"></span>
+				</div>
+				<div class="form-group">
+					<label>작성자</label>
+					<input type="text" class="form-control" name="nickname" th:value="${dto.nickname}" readonly="readonly"/>
+				</div>
+				<div hidden="hidden" class="form-group">
+					<input type="number" class="form-control" name="achieved" value="0"/>
+				</div>
+				<div hidden="hidden" class="form-group">
+					<!-- 
+					<input type="number" class="form-control" name="mnum" th:value="${mDto != null ? mDto.mnum : null}"/>
+					 -->
+					<input type="number" class="form-control" name="mnum" th:value="${dto.mnum}"/>
+				</div>
+				<a href="/product/list"><input value="취소" type="button" class="btn btn-primary" /></a>
+				<!-- 
+				 -->
+				<button type="submit">저장</button>
+			</table>
+			
+		</form>
+		<script>
+			//이미지 미리보기
+			document.getElementById("uploadFiles").addEventListener("change", function(){
+				readURL(this);
+			});
+			function readURL(input){
+				if(input.files && input.files[0]){
+					var filename = input.files[0].name;
+					
+					var reader = new FileReader();
+					reader.readAsDataURL(input.files[0]);
+					
+					reader.addEventListener("load", function(e){
+						document.getElementById("img").src=e.target.result;
+					})
+				}
+			}
+			
+			function check(){
+				let form = document.registerForm;
+				if(!form.name.value){
+					alert("제목을 입력하세요")
+					return false;
+				}
+			
+				if(form.price.value<0|| !form.price.value){
+					alert("가격을 입력하세요")
+					return false;
+				}
+
+				if(!form.detail.value){
+					alert("상품 설명란을 입력하세요")
+					return false;
+				}
+				
+				return true
+			}
+
+			
+		</script>
+		<!-- 
+		 -->
+	</th:block>
+</body>
+</html>

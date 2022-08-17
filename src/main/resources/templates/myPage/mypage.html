@@ -1,0 +1,39 @@
+<!-- Header -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.w3.org/1999/xhtml">
+<th:block th:replace="~{/layout/header::setContent(~{this::content})}">
+   <th:block th:fragment="content">
+      </th:block>
+</th:block>
+
+<!-- 자신의 코드 작성-->
+
+		<div class="mypage_button_div" align="left">
+			<button class="address_btn address_btn_1" onclick="location.href='/myPage/chargeConfirm'">충전 내역 조회</button>
+			<button class="address_btn address_btn_1" onclick="location.href='/myPage/tradeConfirm'">거래 내역 조회</button>
+			<button class="address_btn address_btn_2" onclick="location.href='/member/modify'">회원정보 수정</button>
+			<button sec:authorize="hasRole('ROLE_ADMIN')" class="address_btn address_btn_3" onclick="location.href='/admin/chargeRequestList'">충전 승인</button>
+			
+		</div>
+
+
+
+
+
+
+<!-- Footer -->
+<th:block th:replace="~{/layout/footer::setContent(~{this::content})}">
+   <th:block th:fragment="content">
+   
+   <style>
+   div{
+		margin-top:20px;
+  		margin-right:15px;
+  		margin-bottom:10px;
+  		margin-left:15px;
+	}
+   </style>
+   
+   </th:block>
+</th:block>

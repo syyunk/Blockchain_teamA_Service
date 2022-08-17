@@ -1,0 +1,109 @@
+<!-- Header -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/header::setContent(~{this::content})}">
+   <th:block th:fragment="content">
+      </th:block>
+</th:block>
+
+
+        <div class='inner-div'>
+
+            <br>
+            <br><br>
+            <table style ='text-align :justify; width:430px; height: 200px; margin-left:auto; margin-right:auto;'>
+                <tr style="font-size : 17px; text-align: center; border-bottom: solid; border-bottom-color: #481677">
+                    <th >상품 사진</th>
+                    <th style="width: 210px;">상품 정보</th>
+                </tr>
+
+                <tr>
+                    <td rowspan="3" style="text-align: center;"> <img src="파일명" width="205px" height="150px"> </td>
+                    <td th:text="@{상품 이름 : }+${dto.name}">상품 이름 :  </td>
+                </tr>
+
+                <tr>
+                    <td th:text="@{상품 가격 : }+${dto.price}">상품 가격 :   </td>
+                </tr>
+
+                <tr>
+                    <td th:text="@{지갑 잔액 : }+${balance}">지갑 잔액 :   </td>
+                </tr>
+                <tr>
+                    <td> &nbsp</td>
+                    <td>&nbsp</td>
+                </tr>
+<!--
+-->
+                <tr>
+                    <td th:if="${dto.price}>${balance}">
+                        <p> 잔액이 부족합니다. 코인 충전 후 구매 가능합니다. </p>
+
+                    </td>
+
+                </tr>
+                <tr style= "text-align: center; margin-left: 10%;">
+                    <td> <button class="goCharge" > <a th:href="@{/wallet/chargeRequest}">코인 충전 </a></button> </td>
+
+                    <td th:if="${dto.price}<=${balance}"> <button class="gobuyConfirm" > <a th:href="@{/myPage/trade(pnum=${dto.pnum})}"> 구매 하기 </a></button></td>
+                </tr>
+            </table>
+
+            <br><br><br><br><br><br>
+        </div>
+
+    </th:block>
+</th:block>
+</html>
+
+
+
+<Style>
+    /*버튼디자인*/
+    button{
+        color: black;
+        width: 120px;
+        height: 35px;
+        background-color: #481677;
+        border-color :white;
+        border-radius: 10px;
+
+    }
+
+    a{
+        text-decoration: none;
+        color : white;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+
+    button :active{
+        box-shadow: 0 0 #74a3b0;
+        background-color: #709CA8;
+    }
+
+
+
+    p.subtitle{
+        font-weight: 500;
+        font-size:18px;
+    }
+    .outer-div {
+
+        width : 600px;
+        margin: auto;
+    }
+
+    .inner-div {
+        text-align: center;
+        width : 600px;
+        margin: auto;
+    }
+</style>
+
+<!-- Footer -->
+<th:block th:replace="~{/layout/footer::setContent(~{this::content})}">
+   <th:block th:fragment="content">
+   </th:block>
+</th:block>

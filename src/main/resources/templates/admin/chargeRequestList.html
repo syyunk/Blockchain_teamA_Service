@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basement::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<h1>충전요청 목록</h1>
+		<table class="table tale-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>요청인 지갑주소</th>
+					<th>현재 잔액</th>
+					<th>충전 요청금액</th>
+					<th>충전 후 금액</th>
+					<th>등록일자</th>
+					<th>반영일자</th>
+					<th>관리</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dto:${result}">
+				
+					<td th:text="${dto.cnum}"></td>
+					<td th:text="${dto.sWallet}"></td>					
+					<td th:text="${dto.balance}"></td>
+					<td th:text="${dto.total}"></td>
+					<td th:if="${dto.confirm==0}">승인 전</td>
+					<td th:if="${dto.confirm==1}" >[[${dto.balance}+${dto.total}]]</td>
+					<td th:text="${dto.regdate}"></td>
+					<td th:text="${dto.moddate}"></td>
+					
+					<td th:if= "${dto.confirm}==0">
+						<button  class="confirmBtn btn btn-success" 
+							th:cnum = "${dto.cnum}"
+							th:bWallet = "${dto.bWallet}"
+							th:sWallet = "${dto.sWallet}"
+							th:balance = "${dto.balance}"
+							th:total = "${dto.total}"
+							th:confirm = "${dto.confirm}"
+							th:regdate = "${dto.regdate}"
+							th:moddate = "${dto.moddate}">
+							충전 승인
+						</button>
+						
+					</td>
+					<td th:if= "${dto.confirm}==1">
+					
+						<button  class="comfirmBtn btn btn-secondary" >
+						승인 완료
+						</button>
+						
+					</td>
+				</tr>
+			</tbody>
+			
+		</table>
+		
+		<!-- 충전승인 데이터 폼 필요한 필드만 가져오면 되는데, db저장에는 모든 필드가 필요하고, 블록생성에는 그중 일부만 필요함. 
+		두번의 요청을 어떻게 보내지? 일단 컨트롤러로 받아서 각자 서비스로 요청하면 될듯-->
+		<form method="post" class="confirmForm">
+			<input type="hidden" name="cnum" value="" />
+			<input type="hidden" name="bWallet" value="" />
+			<input type="hidden" name="sWallet" value="" />
+			<input type="hidden" name="balance" value="" />
+			<input type="hidden" name="total" value="" />
+			<input type="hidden" name="confirm" value="" />
+			<input type="hidden" name="regdate" value="" />
+			<input type="hidden" name="moddate" value="" />
+		</form>
+		
+		<script>
+			$(".confirmBtn").click(function(e){
+				e.preventDefault();
+				
+				let confirmForm = $(".confirmForm");
+				
+				confirmForm.find("input[name='cnum']").val($(this).attr("cnum"));
+				confirmForm.find("input[name='bWallet']").val($(this).attr("bWallet"));
+				confirmForm.find("input[name='sWallet']").val($(this).attr("sWallet"));
+				confirmForm.find("input[name='balance']").val($(this).attr("balance"));
+				confirmForm.find("input[name='total']").val($(this).attr("total"));
+				confirmForm.find("input[name='confirm']").val($(this).attr("confirm"));
+				confirmForm.attr("action", "/admin/chargeAccepted");
+				//찍어보
+				confirmForm.submit();
+				
+			})
+		</script>
+	</th:block>
+</body>
+</html>

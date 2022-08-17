@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+  <th:block th:fragment="content">
+    <h1 class="mt-4">거래 작성</h1>
+
+    <form th:action="@{/myPage/trade}" th:method="post">
+    
+      <div class="form-group">
+      <!-- 
+        <label>tNum</label>
+        <input type="text" class="form-control" name="tNum" placeholder="Enter Title">
+      </div>
+     -->
+      
+      <div class="form-group">
+        <label>bWallet</label>
+        <input type="text" class="form-control" name="bwallet" placeholder="Enter Title">
+      </div>
+      <div class="form-group">
+        <label>sWallet</label>
+        <input type="text" class="form-control" name="swallet" placeholder="Enter Title">
+      </div>
+      <!-- 
+      <div class="form-group">
+        <label>date</label>
+        <input type="text" class="form-control" name="date" placeholder="Enter Title">
+      </div>-->
+     <!-- -->
+      <div class="form-group">
+        <label>pnum</label>
+        <input type="text" class="form-control" name="pnum" placeholder="Enter Title">
+      </div>
+      <!-- 
+      <div class="form-group">
+        <label>txid</label>
+        <input type="text" class="form-control" name="txid" placeholder="Enter Title">
+      </div>
+      -->
+
+      <div class="form-group">
+        <label>total</label>
+        <input type="text" class="form-control" name="total" placeholder="Enter Title">
+      </div>
+      <!--
+      <div class="form-group">
+        <label>confirm</label>
+        <input type="text" class="form-control" name="confirm" placeholder="Enter Title">
+      </div>
+      -->
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+  </th:block>
+
+</th:block>
+      
+      
+<!-- 
+	
+	<div class="form-group">
+        <label>내용</label>
+        <textarea class="form-control" name="content"></textarea>
+      </div>
+      <div class="form-group">
+        <label>작성자 이메일</label>
+        <input type="email" class="form-control" name="memberEmail" placeholder="작성자 이메일">
+      </div>
+-->
