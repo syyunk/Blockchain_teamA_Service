@@ -1,11 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace="~{/layout/basement::setContent(~{this::content})}">
+<th:block th:replace="~{/layout/header::setContent(~{this::content})}">
 	<th:block th:fragment="content">
+	</th:block>
+</th:block>
 		<!-- Product section-->
 		<section class="py-5">
-			<div class="container px-4 px-lg-5 my-5">
+			<div class="container px-4 px-lg-5 my-5" >
 				<div class="row gx-4 gx-lg-5 align-items-center">
 					<div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{/images/}+${dto.thumb}" alt="..." /></div>
 					<div class="col-md-6">
@@ -31,15 +32,15 @@
 				</div>
 				<div class="row gx-4 gx-lg-5 align-items-center">
 					<div class="container px-4 px-lg-5 my-5">
-						<div  style="margin-left: 1rem">
+						<div  style="margin-left: 1rem; display: flex">
 							<a href="/main" class="col-md-6">
 								<input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect btn "
-									   style="background-color: darkgray; color:white; width: 100%; margin-top: 5rem;" value="목록보기" />
+									   style="background-color: darkgray; color:white; width: 90%; margin-top: 5rem;" value="목록보기" />
 							</a>
 
 							<a th:href="@{/product/buy(pnum=${dto.pnum})}" class="col-md-6">
 								<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect btn "
-										style="background-color: blueviolet; color:white; width: 100%;  margin-top: 5rem;">구매하기</button>
+										style="background-color: blueviolet; color:white; width: 90%;  margin-top: 5rem;">구매하기</button>
 							</a>
 						</div>
 					</div>
@@ -50,18 +51,6 @@
 		<section class="py-5">
 
 		</section>
-
-
-		<!--		<div class="form-group">-->
-		<!--			<label>작성 시간</label>-->
-		<!--			<input type="text" class="form-control" name="regDate"-->
-		<!--				   th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:SS')}" readOnly />-->
-		<!--		</div>-->
-		<!--		<div class="form-group" hidden="hidden">-->
-		<!--			<label>수정 시간</label>-->
-		<!--			<input type="text" class="form-control" name="modDate"-->
-		<!--				   th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:SS')}" readOnly />-->
-		<!--		</div>-->
 
 		<script>
 			$(".btn-warning").click(function() {
@@ -101,9 +90,13 @@
 					location.href='/memo/list';
 				});
 			});
-			//이미지 사이즈 조정
+		</script>
 
-			
-			</script>
-			</th:block>
-			
+	</th:block>
+</th:block>
+
+
+<th:block th:replace="~{/layout/footer::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+	</th:block>
+</th:block>

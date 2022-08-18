@@ -14,7 +14,11 @@ xmlns:sec="http://www.w3.org/1999/xhtml">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/css/styles.css" rel="stylesheet" />
-        
+         <!-- Material Design -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    
          <!-- Modal 사용을 위한 헤더정보	--> 
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
@@ -32,17 +36,13 @@ xmlns:sec="http://www.w3.org/1999/xhtml">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/">All Products</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="/">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="/">New Arrivals</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                        <li class="nav-item"><a class="nav-link" href="about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/product/register}">상품 등록</a></li>
+                        <li class="nav-item"><a class="nav-link" href="myPage/tradeConfirm">거래 조회</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/product/list">상품 리스트</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/wallet/chargeRequest">충전</a></li>
+                        <li class="nav-item"><a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/admin/chargeRequestList">충전 승인 대기 목록</a></li>
+					</ul>
                     <form class="d-flex">
                     <a sec:authorize="isAnonymous()"  class="nav-link active" aria-current="page" style="font-weight:bold; color: #222222" onclick="location.href='/member/login'">Login </a>
                     <a sec:authorize="isAuthenticated()" class="nav-link active" aria-current="page" style="font-weight:bold; color: #222222" onclick="location.href='/member/logout'">Logout</a>
@@ -60,6 +60,19 @@ xmlns:sec="http://www.w3.org/1999/xhtml">
                        -->
                     </form>
                 </div>
+                <form class="d-flex">
+				<a sec:authorize="isAnonymous()" class="nav-link active" aria-current="page" style="font-weight:bold; color: #222222" onclick="location.href='/member/login'">Login</a>
+				<a sec:authorize="isAuthenticated()" class="nav-link active" aria-current="page" style="font-weight:bold; color: #222222" onclick="location.href='/member/logout'">Logout</a>
+				<a sec:authorize="isAuthenticated()" class="nav-link active" aria-current="page" style="font-weight:bold; color: #222222" onclick="location.href='/myPage/mypage'">Mypage</a>				<!-- <a class="nav-link active" aria-current="page" href="/">Logout</a>-->
+
+				<!--
+                    <button class="btn btn-outline-dark" type="submit">
+                        <i class="bi-cart-fill me-1"></i>
+                        Cart
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    </button>
+                   -->
+				</form>
             </div>
         </nav>
         <!-- Header-->

@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace="~{/layout/basement::setContent(~{this::content})}">
+<th:block th:replace="~{/layout/header::setContent(~{this::content})}">
 	<th:block th:fragment="content">
+		</th:block>
+</th:block>
+
+<br><br>
+
 		<section class="py-5">
 			<div class="container px-4 px-lg-5 my-5">
 
@@ -120,5 +125,9 @@
 		</script>
 		<!--
 		 -->
+	</th:block>
+</th:block>
+<th:block th:replace="~{/layout/footer::setContent(~{this::content})}">
+	<th:block th:fragment="content">
 	</th:block>
 </th:block>
