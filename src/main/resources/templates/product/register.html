@@ -2,55 +2,82 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout/basement::setContent(~{this::content})}">
 	<th:block th:fragment="content">
-		<h1 class="mt4">상품 등록</h1>
-		
-		<form action="/product/register" name="registerForm" method="post" enctype="multipart/form-data"  th:object="${dto}" 
-			 id="form" th:onsubmit="return check()">
-			<table align= "center">
-				<div class="form-group">
-					<input type="file" name="img" id="uploadFiles"/>
+		<section class="py-5">
+			<div class="container px-4 px-lg-5 my-5">
+
+				<div class="row gx-4 gx-lg-5 align-items-center" >
+
+
+					<div class="col-md-6"><img border="1" width="500" height="600" class="card-img-top mb-5 mb-md-0" id="img" src="https://dummyimage.com/600x600/dee2e6/6c757d.jpg" alt="..." /></div>
+					<div class="col-md-6">
+						<!-- Floating Multiline Textfield -->
+						<form action="/product/register"
+							  name="registerForm" method="post" enctype="multipart/form-data"
+							  id="form" th:onsubmit="return check()">
+
+							<div class="mb-3">
+								<label class="file-label display-6 mdl-js-ripple-effect " for="uploadFiles"
+									   style="margin-top: 30px; background-color: blueviolet; color:white; text-align: center;
+									padding: 10px 0; width: 50%; border-radius: 6px; cursor: pointer;">Choose File</label>
+								<input class="file" type="file" name="img" id="uploadFiles" style="display: none"/>
+							</div>
+
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label .col-12 .col-md-12" style="width: 100%;">
+								<input name="name" class="mdl-textfield__input" type="text" id="sample3"  style="width: 100%;">
+								<label class="mdl-textfield__label" for="sample3">제목</label>
+							</div>
+
+
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label .col-12 .col-md-12"  style="width: 100%;">
+								<input name="price" class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4"  style="width: 100%;">
+								<label class="mdl-textfield__label" for="sample4">가격</label>
+								<span class="mdl-textfield__error">숫자를 입력해야 합니다!</span>
+							</div>
+
+							<div style="width: 100%" class="mdl-textfield mdl-js-textfield .col-15 .col-md-15">
+								<label style="width: 100%" class="mdl-textfield__label" for="detail">상품 설명란...</label>
+								<textarea name="detail" id="detail" class="mdl-textfield__input" type="text" rows= "7" width="100%"></textarea><br />
+							</div>
+							<div hidden >
+								<label>작성자</label>
+								<input type="text" class="form-control" name="nickname" value="user2" readonly="readonly"/>
+							</div>
+							<div hidden>
+								<input type="number" class="form-control" name="mnum" value="1"/>
+							</div>
+							<div hidden >
+								<input type="number" class="form-control" name="achieved" value="0"/>
+							</div>
+<!--
+							<div>
+
+								<a href="/product/list" class="col-md-4">
+									<input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect btn " style="background-color: darkgray; color:white;  width:100%;" value="취소" />
+								</a>
+								<a href="/product/register" class="col-md-4 offset-md-4">
+									<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect btn " style="background-color: blueviolet; color:white; width:100%;">저장</button>
+								</a>
+							</div>
+							-->
+							<div  style="margin-left: 1rem">
+								<a href="/product/list" class="col-md-6">
+									<input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect btn "
+										   style="background-color: darkgray; color:white; width: 100%; margin-top: 3rem;" value="취소" />
+								</a>
+
+								<a  class="col-md-6" href="/product/register" >
+									<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect btn "
+											style="background-color: blueviolet; color:white; width: 100%;  margin-top: 3rem;">저장</button>
+								</a>
+							</div>
+
+
+						</form>
+
+					</div>
 				</div>
-				
-				<div class="form-group">
-					<label>미리보기</label>
-					<img url="" id="img" width="200" height="200" border="1"/>
-				</div>
-				<div class="form-group">
-					<label>제목</label>
-					<input type="text" class="form-control" name="name" placeholder="제목" />
-					<span th:text="${valid_name}"></span>
-					
-				</div>
-				<div class="form-group">
-					<label>가격</label>
-					<input type="number" class="form-control" name="price" placeholder="가격" />
-					<span th:text="${valid_price}"></span>
-				</div>
-				<div class="form-group">
-					<label>내용</label>
-					<textarea class="form-control" name="detail" id="detail" placeholder="게시글 내용을 작성해주세요."></textarea>
-					<span th:text="${valid_detail}"></span>
-				</div>
-				<div class="form-group">
-					<label>작성자</label>
-					<input type="text" class="form-control" name="nickname" th:value="${dto.nickname}" readonly="readonly"/>
-				</div>
-				<div hidden="hidden" class="form-group">
-					<input type="number" class="form-control" name="achieved" value="0"/>
-				</div>
-				<div hidden="hidden" class="form-group">
-					<!-- 
-					<input type="number" class="form-control" name="mnum" th:value="${mDto != null ? mDto.mnum : null}"/>
-					 -->
-					<input type="number" class="form-control" name="mnum" th:value="${dto.mnum}"/>
-				</div>
-				<a href="/product/list"><input value="취소" type="button" class="btn btn-primary" /></a>
-				<!-- 
-				 -->
-				<button type="submit">저장</button>
-			</table>
-			
-		</form>
+			</div>
+		</section>
 		<script>
 			//이미지 미리보기
 			document.getElementById("uploadFiles").addEventListener("change", function(){
@@ -59,23 +86,23 @@
 			function readURL(input){
 				if(input.files && input.files[0]){
 					var filename = input.files[0].name;
-					
+
 					var reader = new FileReader();
 					reader.readAsDataURL(input.files[0]);
-					
+
 					reader.addEventListener("load", function(e){
 						document.getElementById("img").src=e.target.result;
 					})
 				}
 			}
-			
+
 			function check(){
 				let form = document.registerForm;
 				if(!form.name.value){
 					alert("제목을 입력하세요")
 					return false;
 				}
-			
+
 				if(form.price.value<0|| !form.price.value){
 					alert("가격을 입력하세요")
 					return false;
@@ -85,14 +112,13 @@
 					alert("상품 설명란을 입력하세요")
 					return false;
 				}
-				
+
 				return true
 			}
 
-			
+
 		</script>
-		<!-- 
+		<!--
 		 -->
 	</th:block>
-</body>
-</html>
+</th:block>

@@ -1,33 +1,128 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace="~{/layout/basement::setContent(~{this::content})}">
+<th:block th:replace="~{/layout/header::setContent(~{this::content})}">
 	<th:block th:fragment="content">
-		<h1 class="mt4">충전 </h1>
-		
-		<form th:action="@{/wallet/chargeRequest}" th:method="post">
-			<div class="form-group">
-				<label>현재 잔액</label>
-				<input type="text" class="form-control" name="balance"
-				th:value="${wDto.balance}" readOnly />
-			</div>
-			<div class="form-group">
-				<label>회사 지갑주소</label>
-				<input type="text" class="form-control" name="bWallet" value="1EBM14fstrhwEX6i8KwHvLuNfNNJ4GKuH5" readonly="readonly" />
-			</div>
-			<div class="form-group" >
-				<label>충전요청인 지갑주소</label>
-				<input type="text" class="form-control" name="sWallet" th:value="${walletid}"/>
-			</div>
-			<div class="form-group">
-				<label>요청 금액</label>
-				<input type="number" class="form-control" name="total" />
-			</div>
-			<div class="form-group" >
-				<input type="hidden" class="form-control" name="confirm" value="0"/>
-			</div>
-			<a href="/product/list"><input value="취소" type="button" class="btn btn-primary" /></a> 
-			<button type="submit" class="btn btn-primary" >충전 요청</button>
-		</form>
 	</th:block>
-</body>
-</html>
+
+
+</th:block>
+
+
+
+<br><br>
+
+<div class='outer-div'>
+	<div class='inner-div'>
+
+		<h1 class="mt4" align="center">충    전</h1>
+		<br>
+		<form th:name="chargeForm"   th:action="@{/wallet/chargeRequest}" th:method="post"
+			th:onsubmit="return check()">
+			<table align="center">
+				<tr>
+					<td>현재 잔액</td>
+					<td>
+						<input type="text" name="balance" th:value="${wDto.balance}" readOnly >
+					</td>
+				</tr>
+
+				<div class="form-group" hidden>
+					<label>회사 지갑주소</label>
+					<input type="text" class="form-control" name="bWallet" value="1EBM14fstrhwEX6i8KwHvLuNfNNJ4GKuH5" readonly="readonly" />
+				</div>
+
+				<tr>
+					<td>내 지갑주소</td>
+					<td>
+						<input type="text"  name="sWallet" th:value="${walletid}" readonly/>
+					</td>
+				</tr>
+
+				<tr>
+					<td>충전 금액</td>
+					<td>
+						<input  class="total" type="text" name="total"
+								placeholder="충전 요청 금액을 입력해주세요."/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<a href="/product/list"><input class= "btn" type="button" onclick="window.location='/main'" value="취  소" /></a>
+						&nbsp &nbsp  &nbsp &nbsp
+						<input type="submit" class= "btn" value="확  인"  />
+					</td>
+				</tr>
+			</table>
+		</form>
+
+	</div>
+</div>
+<script>
+	function check(){
+		let form = document.chargeForm;
+		if(!form.total.value){
+			alert("충전 값을 입력하세요")
+			return false;
+		}
+		if(isNaN(form.total.value)){
+			alert("숫자값을 입력해야 합니다.")
+			return false;
+		}
+	}
+</script>
+
+<th:block th:replace="~{/layout/footer::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+	</th:block>
+</th:block>
+<style>
+
+	.outer-div {
+		width : 600px;
+		margin: auto;
+		height: 800px;
+	}
+
+	.inner-div {
+		text-align: center;
+		width : 600px;
+		height: 800px;
+		margin: auto;
+	}
+	/*버튼디자인*/
+	input.btn{
+		color : white;
+		font-weight: bold;
+		background-color: #481677;
+		border-color :#6667AB;
+		width: 150px;
+		height: 45px;
+		border-radius : 10px;
+		font-size: 16px;
+	}
+
+	input.btn:hover{
+		background-color: white;
+		border-color :#481677;
+
+	}
+	table {
+		width: 400px;
+		height: 460px;
+	}
+	td{
+		font-weight: bold;
+		font-size: 15px;
+
+	}
+
+	input{
+		height: 40px;
+		width: 300px;
+		border-color : #481677;
+		border-radius : 10px;
+	}
+
+
+</style>
+

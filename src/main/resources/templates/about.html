@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/header::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		</th:block>
+</th:block>
+
+<div class='outer-div'>
+  <div class='inner-div'>
+  <br><br>
+  	<h2> POP Market 소개</H2><br>
+	 <p class="subtitle">  
+	 POP Market은 블록체인을 기반으로 <br> 
+	 중고 거래의 객관적 신뢰성을 향상 시키는 중고 거래 플랫폼 입니다.
+	 
+	  </p>
+	  
+	<img class='barcode' src= '/image/about.jpg' style=' height:250px; width: 500px;' />
+	<br>
+	<br>
+	<br>
+	
+	
+  <p style="font-weight: bold; font-size: 19px;">서비스 소개</p>
+  </div>
+    &nbsp 모든 사용자가 곧 판매자가 될 수 있는 중고 거래 시장은 거래 상대방의 도덕성을 
+	보장할 수 있는 수단이 한정적입니다. 판매자인 사용자가 자신의 구매 거래 내역을 삭제할 경
+	우 해당 판매자의 상품을 구매하고자 하는 사용자는 상품 정보를 객관적으로 파악하기 힘듭니
+	다. 이전에 구매했던 상품을 다시 판매하는, 이른바 ‘되팔렘’의 경우 혹은 이전에 구매했던 
+	가격보다 높은 가격으로 둔갑하여 상품이 재판매되는 경우가 빈번하게 발생하고 있습니다. 
+	<br><br>
+	&nbsp 본 사에서는
+	 이러한 문제를 해결하여 개인 간 중고 거래의 객관적 신뢰성을 향상할 수 있는 
+	방안으로 블록체인 구조를 활용할 것을 제시합니다. 모든 거래 내역이 누락 없이 관리, 공개
+	되는 것과 더불어 구매 확정 기능을 통해 구매 희망자가 입금 일시를 결정함으로써 부도덕한 
+	판매자가 거래물품을 보내지 않고 돈을 편취하는 불상사를 방지하는 서비스를 계획했습니다.
+	<br><br><br>
+</div>
+
+
+
+
+<th:block th:replace="~{/layout/footer::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+	</th:block>
+</th:block>
+
+<style>
+p.subtitle{
+	font-weight: 500;
+	font-size:18px;
+}
+.outer-div {
+  width : 600px;
+  margin: auto;
+}
+
+.inner-div {
+	text-align: center;
+  width : 600px;
+  margin: auto;
+}
+</style>

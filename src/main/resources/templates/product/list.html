@@ -2,64 +2,53 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout/basement::setContent(~{this::content})}">
 	<th:block th:fragment="content">
-		<h1>
-			상품리스트
-			<span>
-				<a th:href="@{/product/register}">
-					<button type="button" class="btn btn-outline-warning">
-						상품 등록
-					</button>
-				</a>
-			</span>
-		</h1>
 
-		<div th:if="${msg != null}" th:text="${msg}"></div>
+		<section class="py-5">
+			<div class="container px-4 px-lg-5 mt-5">
+				<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">상품명</th>
-					<th scope="col">작성자</th>
-					<th scope="col">작성일</th>
-					<th scope="col">가격</th>
-					<th scope="col">사진</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="dto:${result.dtoList}">
 
-					<th scope="row">[[${dto.pnum}]]</th>
-					<td>
-					<a th:href="@{/product/read(pnum=${dto.pnum})}">
-						[[${dto.name}]]
-					</a>
-					</td>
-					<td>[[${dto.nickname}]]</td>
-					<td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
-					<td>[[${dto.price}]]</td>
-					<td>[[${dto.thumb}]]</td>
-				</tr>
-			</tbody>
-		</table>
+					<!--상품 -->
+					<div class="col mb-5" th:each="dto : ${result.dtoList}">
+						<div class="card h-100" th:onclick="|location.href='@{/product/read(pnum=${dto.pnum})}'|">
+							<!-- Product image  " style="width:205px; height:150px;" -->
+							<img class="card-img-top" th:src= "@{/images/}+${dto.thumb}" alt="..." style=" height:160px;" /> <!-- /image/1.jpg -->
+							<!-- Product details-->
+							<div class="card-body p-4">
+								<div class="text-center">
+									<!-- Product name-->
+									<h5 class="fw-bolder">[[${dto.name}]]</h5>
+									<!-- Product reviews-->
+									<div class="d-flex justify-content-center small text-warning mb-2">
+										<!--
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            -->
+									</div>
+									<!-- Product price-->
+									[[${dto.price}]]원
+								</div>
+								<div class="text-center">
+								</div>
+							</div>
+							<!-- Product actions
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                            </div>
+                            -->
+						</div>
+					</div>
 
-		<ul class="pagination h-100 justify-content-center align-items-center" style="display: flex;">
-			<li class="page-item" th:if="${result.prev}">
-				<a class="page-link" th:href="@{/memo/list(page=${result.start-1}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}" tabindex="-1">
-					이전
-				</a>
-			</li>
 
-			<li th:class=" 'page-item ' + ${result.page == page?'active':''}"
-				th:each="page:${result.pageList}">
-				<a class="page-link" th:href="@{/memo/list(page=${page})}">[[${page}]]</a>
-			</li>
-			<li class="page-item" th:if="${result.next}">
-				<a class="page-link" th:href="@{/memo/list(page=${result.end+1}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}" >
-					다음
-				</a>
-			</li>
-		</ul>
+
+					<!-- 섹션 끝-->
+
+				</div>
+			</div>
+		</section>
 
 		<script>
 			var searchForm = $("#searchform");

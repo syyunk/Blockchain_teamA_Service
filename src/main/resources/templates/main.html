@@ -23,23 +23,18 @@
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-				<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-				<li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<li><a class="dropdown-item" th:href="@{/product/list}">All Products</a></li>
-						<li><hr class="dropdown-divider" /></li>
-						<li><a class="dropdown-item" href="/">Popular Items</a></li>
-						<li><a class="dropdown-item" href="/">New Arrivals</a></li>
-					</ul>
-				</li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/product/register}">상품 등록</a></li>
+                        <li class="nav-item"><a class="nav-link" href="myPage/trade">거래 조회</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/product/list">상품 리스트</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/wallet/chargeRequest">충전</a></li>
+                        <li class="nav-item"><a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/admin/chargeRequestList">충전 승인 대기 목록</a></li>
 			</ul>
 			<form class="d-flex">
 				<a sec:authorize="isAnonymous()" class="nav-link active" aria-current="page" style="font-weight:bold; color: #222222" onclick="location.href='/member/login'">Login</a>
 				<a sec:authorize="isAuthenticated()" class="nav-link active" aria-current="page" style="font-weight:bold; color: #222222" onclick="location.href='/member/logout'">Logout</a>
-				<a sec:authorize="isAuthenticated()" class="nav-link active" aria-current="page" style="font-weight:bold; color: #222222" onclick="location.href='/myPage/mypage'">Mypage</a>
-				<!-- <a class="nav-link active" aria-current="page" href="/">Logout</a>-->
+				<a sec:authorize="isAuthenticated()" class="nav-link active" aria-current="page" style="font-weight:bold; color: #222222" onclick="location.href='/myPage/mypage'">Mypage</a>				<!-- <a class="nav-link active" aria-current="page" href="/">Logout</a>-->
 
 				<!--
                     <button class="btn btn-outline-dark" type="submit">
@@ -65,15 +60,18 @@
 <!-- *********************************************************************************************************************** -->
 
 <!-- Section-->
+
 <section class="py-5">
-				<a th:href="@{/product/register}">
-					<button type="button" class="btn btn-outline-warning"  align="center">
-						상품 등록
-					</button>
-				</a>
 	<div class="container px-5 px-lg-5 mt-5">
 		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
+				<span>
+				<a th:href="@{/product/register}" >
+					<button type="button" class="btn btn-outline-warning" align="center">
+						상품 등록
+					</button>
+				</a>
+			</span>
 			<!--상품 -->
 			<div class="col mb-5" th:each="dto : ${result.dtoList}">
 				<a th:href="@{/product/read(pnum=${dto.pnum})}" style="text-decoration: none; color: #1c1f23">

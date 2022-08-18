@@ -49,19 +49,6 @@ public class ProductController {
 	private final MemberService memberService;
 	private final TradeService tradeService;
 	
-
-
-	//메인함수
-	@Transactional
-	@GetMapping({"/","/main"})
-	public String productList(PageRequestDTO pageRequestDTO, Model model) {
-		log.info("메인화면 이동");
-
-//			System.out.println("1111111111111"+productService.getList(pageRequestDTO));
-		model.addAttribute("result", productService.getList(pageRequestDTO));
-
-		return "/main";
-	}
 	
 	@GetMapping("/product/list")
 	public void list(PageRequestDTO pageRequestDTO, Model model) {

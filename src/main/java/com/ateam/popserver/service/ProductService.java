@@ -21,7 +21,8 @@ public interface ProductService {
 	public Long registerProduct(ProductDTO dto);
 	//하나보기
 	public ProductDTO getProduct(ProductDTO dto);	
-	public ProductDTO readBasic(Long pnum);
+	public ProductDTO readBasic(Long pnum);	
+	public ProductDTO read(Long pnum);
 	public ProductDTO read(Long mnum, Long pnum);
 	//목록보기
 	public PageResponseDTO<ProductDTO, Product> getList(PageRequestDTO pageRequestDTO);

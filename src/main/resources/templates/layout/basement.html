@@ -7,6 +7,11 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Simple Sidebar - Start Bootstrap Template</title>
+        <!-- Material Design -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" th:href="@{assets/favicon.ico}" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -43,19 +48,15 @@
                 <a class="navbar-brand" href="/">POP MARKET</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/">All Products</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="/">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="/">New Arrivals</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                        <li class="nav-item"><a class="nav-link" href="about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/product/register}">상품 등록</a></li>
+                        <li class="nav-item"><a class="nav-link" href="myPage/trade">거래 조회</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/product/list">상품 리스트</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/wallet/chargeRequest">충전</a></li>
+                        <li class="nav-item"><a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/admin/chargeRequestList">충전 승인 대기 목록</a></li>
+			</ul>
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
@@ -109,9 +110,16 @@
     		</div>
         		 -->
 		</div>
-		<!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
+		        <!-- Footer-->
+        <footer class="py-5 bg-dark" >
+            <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022
+            <br>
+            <br>the best platform, which Second-hand Market Service!
+         <br>NOGOSANDONO 57-1, MAPOGU, SEOUL
+            
+            </p>
+            </div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

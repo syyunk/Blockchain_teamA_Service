@@ -61,41 +61,42 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	@Override
-	public Long registerProduct(ProductDTO dto) {
-		MultipartFile uploadFile = dto.getImg();
-		if(!uploadFile.isEmpty()) {
-			System.out.println("이미지파일은 있다");
-			if(!uploadFile.getContentType().startsWith("image")) {
-				System.out.println("이미지파일이 아님"+uploadFile.getContentType());
-				return null;
-			}
-			String originalName = uploadFile.getOriginalFilename();
-			String fileName = originalName.substring(originalName.lastIndexOf("\\")+1);
-			
-			String realUploadPath = makeFolder();
-			
-			String uuid = UUID.randomUUID().toString(); 
-			
-			String saveName = uploadPath + File.separator +realUploadPath + File.separator+ uuid + fileName;
-			Path savePath = Paths.get(saveName); //
-			System.out.println(savePath);
-			try {
-				uploadFile.transferTo(savePath); // 지정경로로 보내버려!
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-			//경로를 html 파일의 이미지 태그에 경로를 적어줄 때 /슬래시로 적어야 함!! dto에 저장할 때는 파일 경로를 변환
-			dto.setThumb(uuid+fileName); //dto 에 저장 
-		}
-		
-		Product p = dtoToEntityProduct(dto);
-		System.out.println("=========================1111111111111111========================");
-		System.out.println(p);
-		productRepository.save(p);
-		
-		return p.getPnum();
-	
-	}
+	   public Long registerProduct(ProductDTO dto) {
+	      MultipartFile uploadFile = dto.getImg();
+	      if(uploadFile.isEmpty() == false) {
+	         System.out.println("이미지파일은 있다");
+	         if(uploadFile.getContentType().startsWith("image")==false) {
+	            System.out.println("이미지파일이 아님"+uploadFile.getContentType());
+	            return null;
+	         }
+	         String originalName = uploadFile.getOriginalFilename();
+	         String fileName = originalName.substring(originalName.lastIndexOf("\\")+1);
+	         String realUploadPath = makeFolder();
+
+	         String uuid = UUID.randomUUID().toString();
+
+	         String saveName = uploadPath + File.separator + uuid + fileName;
+	         Path savePath = Paths.get(saveName); //
+	         System.out.println(realUploadPath);
+	         System.out.println(uploadPath+"3333333333333333333333333333");
+	         System.out.println(savePath);
+	         try {
+	            uploadFile.transferTo(savePath); // 지정경로로 보내버려!
+	         }catch(Exception e){
+	            e.printStackTrace();
+	         }
+	         //경로를 html 파일의 이미지 태그에 경로를 적어줄 때 /슬래시로 적어야 함!! dto에 저장할 때는 파일 경로를 변환
+	         dto.setThumb(uuid+fileName); //dto 에 저장
+	      }
+
+	      Product p = dtoToEntityProduct(dto);
+	      System.out.println("=========================1111111111111111========================");
+	      System.out.println(p);
+	      productRepository.save(p);
+
+	      return p.getPnum();
+
+	   }
 
 	@Override
 	public PageResponseDTO<ProductDTO, Product> getList(PageRequestDTO requestDTO) {
@@ -162,7 +163,20 @@ public class ProductServiceImpl implements ProductService {
 		return product.isPresent()?entityToDTO(product.get()):null;
 	}
 	
+	//상품상세에 필요한 리드
+	@Override
+	   public ProductDTO read(Long pnum) {
+	      //ProductDTO dto = ProductDTO.builder().pnum(pnum).build();//이건 서비스 테스트에서 하던건데 안돼. 왜? 
+	      Optional<Product> product = productRepository.findById(pnum); //서비스에서는 레포지토리를 호출해야함. 
+	      if(product.isPresent()){
+	         System.out.println(product);
+	      }
+	      return product.isPresent()?entityToDTO(product.get()):null;
+	   }
 	
+	
+	
+	//충전거래내역 조회할 떄 필요한 리드
 	@Override
 	public ProductDTO read(Long mnum, Long pnum) {
 		//ProductDTO dto = ProductDTO.builder().pnum(pnum).build();//이건 서비스 테스트에서 하던건데 안돼. 왜? 
