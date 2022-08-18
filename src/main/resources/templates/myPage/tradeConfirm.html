@@ -21,7 +21,7 @@
 		-->
 		
 		<table class="table tale-striped" 
-		style="width : 1150px; margin-left:auto; margin-right:auto;"> 
+		style="width : 1300px; margin-left:auto; margin-right:auto;"> 
 			<thead>
 				<tr style="font-size : 17px;">
 					<!-- <th>블록 아이디</th> -->
@@ -34,7 +34,7 @@
 				</tr>
 			</thead>
 			
-			<tr th:each="dto:${result}" th:if="${result!=null}" style="font-size: 14px;">
+			<tr th:each="dto:${result}" th:if="${result!=null}" style="font-size: 12px; text-align: center;">
 			
 			
 			
@@ -64,7 +64,7 @@
 				<th th:unless="${dto.confirm} == 0">
 				 <!--TX조회-->
 					<button  class="getTxBtn" name="test" th:value=${dto.txid}>
-						 <a href="#ex2" rel="modal:open">
+						 <a class= "aGet" href="#ex2" rel="modal:open">
 						 tx 조회
 						 </a>
 					 </button>
@@ -147,7 +147,7 @@
 					        +"<p id='timestamp'><b>Tiemstamp :</b> <br><br>"+data.Timestamp+"<br></p>"
 					        //+"</div>"
 					        
-					        + "<img class='barcode' src= '/image/img.jpg' style=' height:100px; width: 400;' />"
+					        + "<img class='barcode' src= '/images/barcode.jpg' style=' height:100px; width: 400;' />"
 					        //+ "<p><b>**********************</b></p>"
 					        +"<p>Returns With receipt,</p>"
 					        +"<p>subject to CVS Return Policy</p>"
@@ -193,6 +193,8 @@
 				        +"<p id='To'><b>To :</b> <br><br>"+data.To+"<br></p>"
 				        +"<p id='Amount'><b>Amount :</b> <br><br>"+data.Amount+"<br></p>"
 				        //+"</div>"
+				        
+				         + "<img class='barcode' src= '/images/barcode.jpg' style=' height:100px; width: 400;' />"
 				        
 				        //+ "<p><b>**********************</b></p>"
 				        +"<p>Returns With receipt,</p>"

@@ -18,17 +18,28 @@
 				<td>아이디*</td>
 				<td>
 				<input type="text" name="mid" th:value="${MemberDto != null ? MemberDto.mid : null}" placeholder="아이디를 입력해주세요.">
-            	<span th:text="${valid_mid}"></span>
-				<div th:if="${error!=null}" th:text="${error}"></div>
-				
 				</td>
 			</tr>	
+			<tr>
+				<td>
+				</td>
+				<td>
+	            	<span th:text="${valid_mid}"></span>
+					<div th:if="${error!=null}" th:text="${error}"></div>
+				</td>
+			</tr>
 				
 			<tr>
 				<td>비밀번호*</td>
 				<td>
 				<input type="password" name="pw" th:value="${MemberDto != null ? MemberDto.pw : null}"/>
-				<span th:text="${valid_pw}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+				<td>
+	            	<span th:text="${valid_pw}"></span>
 				</td>
 			</tr>
 
@@ -36,15 +47,29 @@
 				<td>닉네임*</td>
 				<td>
 				<input type="text" name="nickname" th:value="${MemberDto != null ? MemberDto.nickname : null}"/>
-				<span th:text="${valid_nickname}"></span>
 				<div th:if="${error!=null}" th:text="${error}"></div>
 				</td>
 			</tr>
+			<tr>
+				<td>
+				</td>
+				<td>
+	            	<span th:text="${valid_nickname}"></span>
+					<div th:if="${error!=null}" th:text="${error}"></div>
+				</td>
+			</tr>			
+
 			<tr> 
 				<td>지갑 이름*</td>
 				<td>
 				<input type="text" name="alias" th:value="${MemberDto != null ? MemberDto.alias : null}"/>
-				<span th:text="${valid_alias}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+				<td>
+	            	<span th:text="${valid_alias}"></span>
 				</td>
 			</tr>
 			<tr> 
@@ -52,14 +77,26 @@
 				<td>
 				<input type="text" name="tel" th:value="${MemberDto != null ? MemberDto.tel : null}" 
 					placeholder="예) 010-1234-5678" onkeyup="addHypen(this);"/>
-				<span th:text="${valid_tel}"></span>				
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+				<td>
+	            	<span th:text="${valid_tel}"></span>
 				</td>
 			</tr>
 			<tr> 
 				<td>주소*</td>
 				<td>
 				<input type="text" name="addr" />
-				<span th:text="${valid_addr}"></span>				
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+				<td>
+	            	<span th:text="${valid_addr}"></span>
 				</td>
 			</tr>
 			<tr>

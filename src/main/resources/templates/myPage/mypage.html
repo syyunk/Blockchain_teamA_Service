@@ -12,7 +12,6 @@
 		<div class="mypage_button_div" align="left">
 			<button class="address_btn address_btn_1" onclick="location.href='/myPage/chargeConfirm'">충전 내역 조회</button>
 			<button class="address_btn address_btn_1" onclick="location.href='/myPage/tradeConfirm'">거래 내역 조회</button>
-			<button class="address_btn address_btn_2" onclick="location.href='/member/modify'">회원정보 수정</button>
 			<button sec:authorize="hasRole('ROLE_ADMIN')" class="address_btn address_btn_3" onclick="location.href='/admin/chargeRequestList'">충전 승인</button>
 			
 		</div>
